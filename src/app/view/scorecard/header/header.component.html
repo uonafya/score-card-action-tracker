@@ -1,0 +1,37 @@
+<div *ngIf="template_content.display" [innerHTML]="template_content.content | safeHtml"></div>
+<h3 class="text-center" *ngIf="!template_content.content && template_content.display">
+  <span >{{ scorecard_title }} &nbsp;</span>
+  {{ organisation_unit_title || '' }}&nbsp;&nbsp;&nbsp;
+  <span> {{ period_title || '' }} </span>
+</h3>
+
+<!--legend area-->
+<div class="row legend" style="margin-bottom: 10px" *ngIf="show_legend_definition">
+  <div class="col-sm-2 legendItem" *ngFor="let legend of legendset_definitions">
+    <table>
+      <tr>
+        <td style="padding-left: 0px;height: 25px;width: 50px">
+          <svg viewbox="0 0 50 25" width="50" height="25" style="border: 1px solid #014b5a">
+            <polygon points="0 0 50 0 50 25 0 25" [attr.fill]="legend.color"/>
+          </svg>
+        </td>
+        <td style="font-size: 10px;padding-left: 5px">{{ legend.definition}}</td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-sm-12">
+    <div style="float: left; font-size: 0.7em">
+      <i class="fa fa-caret-up"></i>&nbsp;
+      <span [translate]="'Increase from last period'">Increase from last period</span>
+      <span>&nbsp;&nbsp;&nbsp;</span>
+      <i class="fa fa-caret-down"></i>&nbsp;
+      <span [translate]="'Decrease from last period'">Decrease from last period</span>
+      <span  *ngIf="has_bottleneck">&nbsp;&nbsp;&nbsp;</span>
+      <i class="fa fa-bar-chart-o" *ngIf="has_bottleneck"></i>&nbsp;
+      <span  *ngIf="has_bottleneck" [translate]="'Indicator has bottleneck analysis'">Indicator has bottleneck analysis</span>
+      <span  *ngIf="has_error">&nbsp;&nbsp;&nbsp;</span>
+      <i  *ngIf="has_error"class="fa fa-warning text-warning"></i>&nbsp;
+      <span  *ngIf="has_error" [translate]="'Error Loading data'">Error Loading data</span>
+    </div>
+  </div>
+</div>

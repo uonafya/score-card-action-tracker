@@ -1,0 +1,1 @@
+Add summary of the actions tracked per period (e.g months)

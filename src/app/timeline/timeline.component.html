@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <h3 class="title">Timeline for {{org_unit}} on
+    <b>{{scorecard_name}}</b>
+  </h3>
+  <br>
+  <a href="#" (click)="backToScoreCard(); false">Back to Scorecard</a>
+  <br>
+
+  <div class="row">
+    <div class="col-sm-12 ">
+
+      <div class="table-responsive table-stripped table-hoverable table-bordered">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Review</th>
+              <th>Indicator</th>
+              <th>Person</th>
+              <th>Assignee</th>
+              <th>Date Due</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let review of reviews; let i = index">
+            <tr *ngFor="let indicator of reviews[i].review.indicators; let j = index">
+              <th [attr.rowspan]="reviews[i].review.indicators.length" [hidden]="j!=0" >
+                {{getDateFromReviewID(review.review.id)}}
+              </th>
+              <td>{{indicator.name}}</td>
+              <td>{{getUser(indicator.reporter)}}</td>
+              <td>{{getUser(indicator.assignee)}}</td>
+              <td>{{getDateFromString(indicator.date_due)}}</td>
+              <td [class]="getStatus(indicator).class">{{getStatus(indicator).text}}</td>
+            </tr>
+            
+          </tbody>
+
+        </table>
+      </div>
+
+      <code>
+        {{reviews.length}}
+      </code>
+    </div>
+  </div>
+</div>

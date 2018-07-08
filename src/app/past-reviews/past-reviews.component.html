@@ -1,0 +1,79 @@
+<div class="container-fluid">
+  <br />
+  <button class="btn btn-info" (click) = "backToScoreCard()">Back to Scorecard</button>
+  <div class="row top-div">
+    <div class="col-sm-3">
+      <h3 class="title">Past Reviews</h3>
+
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let review of reviews" [class.active]="review == active_review" (click)="setActiveReview(review)">{{getDate(review .review.id)}} </li>
+      </ul>
+
+    </div>
+
+    <div class="col-sm-9">
+      <h3 class="title">Indicator Reports</h3>
+      
+      <div class="row">
+        <div 
+        *ngFor="let indicator of indicators" 
+        class="col-sm-8 col-sm-offset-2 table-responsive table-bordered table-striped col-sm-10"
+        >   
+
+          <table [class] = "tableClass(indicator)" class="table"
+           style="width:100% !important"
+          >
+            <thead>
+              <tr>
+                <th colspan="2" class="text-info">{{indicator.name}} {{doneDetails(indicator)}}</th>
+                
+              </tr>
+              <tr>
+                <td class="text-danger">Score ({{indicator.score}})</td>
+                <td>Minimum {{indicator.min}}</td>
+              </tr>
+
+              <tr>
+                <td colspan="2"></td>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="text-info">Reporter</td>
+                <td>{{getUser(indicator.reporter)}}</td>
+              </tr>
+
+              <tr>
+                <td class="text-info">Assignee</td>
+                <td>{{getUser(indicator.assignee)}}</td>
+              </tr>
+
+              <tr>
+                <td class="text-info">Comment</td>
+                <td>{{indicator.comment}}</td>
+              </tr>
+
+              <tr>
+                <td class="text-info">Date Due</td>
+                <td>{{indicator.date_due}}</td>
+              </tr>
+
+              <tr>
+                <td>
+                  {{compareDateDue(indicator)}}
+                </td>
+                <td [hidden]="indicator.done">
+                  <button class="btn btn-success" (click) = "markAsDone(indicator)">Mark as Complete</button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
